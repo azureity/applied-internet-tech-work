@@ -17,7 +17,22 @@ var generateCards = function(){
 	return cards;
 };
 
+//paramter must be an array
+var shuffle = function(x){
+	for(var i = 0; i < x.length; i++){	
+		randomIndex = Math.floor(Math.random() * x.length);
+		var temp = x[i];
+		x[i] = x[randomIndex];
+		x[randomIndex] = temp;
+	}
+	return x;
+};
+
 console.log("asdf");
 var cards = generateCards();
 console.log(cards); 
 console.log(cards.length);
+
+var shuffled = shuffle(cards);
+console.log(shuffled);
+console.log(shuffled.length);
