@@ -51,6 +51,22 @@ var calculateHand = function(x){
 	return total;
 };
 
+//x is player hand. y is AI hand
+var determineWinner = function(x, y){
+	var player = 21 - calculateHand(x);
+	var computer = 21 - calculateHand(y);
+	var win = "";
+	console.log(x);
+	console.log(y);
+	console.log(player);
+	console.log(computer);
+	if((player === computer) || (player < 0 && computer < 0)) win = "Tie";
+	else if(player >= 0 && (computer > player || computer < 0)) win = "Player";
+	else if(computer >= 0 && (player > computer || player < 0)) win = "Computer";
+	
+	return win;	
+};
+
 console.log("asdf");
 var cards = generateCards();
 console.log(cards); 
@@ -63,7 +79,17 @@ console.log(shuffled.length);
 var hand = ['K', '3', '5'];
 var hand2 = ['A', 'A', 'A', '8'];
 var hand3 = ['6', 'A'];
+var hand4 = ['K', 'J', '3']
+var hand5 = ['J', 'Q', 'Q']
 
 console.log(calculateHand(hand));
 console.log(calculateHand(hand2));
 console.log(calculateHand(hand3));
+
+var winner = determineWinner(hand, hand2);
+console.log(winner);
+winner = determineWinner(hand2, hand4);
+console.log(winner);
+console.log(determineWinner(hand4, hand5));
+console.log(determineWinner(hand3, hand));
+console.log(determineWinner(hand2, hand2));
