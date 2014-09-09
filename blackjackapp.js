@@ -28,6 +28,29 @@ var shuffle = function(x){
 	return x;
 };
 
+//parameter must be an array
+var calculateHand = function(x){
+	var total = 0;
+
+	for(var i = 0; i < x.length; i++){
+		switch(x[i]){
+			case 'J':
+			case 'Q':
+			case 'K':
+				total += 10;
+				break;
+			case 'A':
+				total += 11;
+				if(total > 21){
+					total -= 10;}
+				break;
+			default:
+				total += parseInt(x[i]);
+		}
+	}
+	return total;
+};
+
 console.log("asdf");
 var cards = generateCards();
 console.log(cards); 
@@ -36,3 +59,11 @@ console.log(cards.length);
 var shuffled = shuffle(cards);
 console.log(shuffled);
 console.log(shuffled.length);
+
+var hand = ['K', '3', '5'];
+var hand2 = ['A', 'A', 'A', '8'];
+var hand3 = ['6', 'A'];
+
+console.log(calculateHand(hand));
+console.log(calculateHand(hand2));
+console.log(calculateHand(hand3));
