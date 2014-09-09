@@ -57,7 +57,7 @@ var simpHand = function(x){
 	for(var i = 0; i < x.length; i++){
 		ans.push(x[i].face);
 	}
-	console.log("SIMPLE: " + ans);
+	//console.log("SIMPLE: " + ans);
 	return ans;
 };
 
@@ -66,9 +66,9 @@ var determineWinner = function(x, y){
 	var player = 21 - calculateHand(x);
 	var computer = 21 - calculateHand(y);
 	var win = "";
-	if((player === computer) || (player < 0 && computer < 0)) win = "Tie";
-	else if(player >= 0 && (computer > player || computer < 0)) win = "Player";
-	else if(computer >= 0 && (player > computer || player < 0)) win = "Computer";
+	if((player === computer) || (player < 0 && computer < 0)) win = "Tie!\n";
+	else if(player >= 0 && (computer > player || computer < 0)) win = "Player Wins\n";
+	else if(computer >= 0 && (player > computer || player < 0)) win = "Computer Wins\n";
 	
 	return win;	
 };
@@ -83,6 +83,7 @@ var printHand = function(x){
 };
 
 //testing space
+/*
 console.log("asdf");
 var cards = generateCards();
 console.log(cards); 
@@ -109,32 +110,38 @@ console.log(winner);
 console.log(determineWinner(hand4, hand5));
 console.log(determineWinner(hand3, hand));
 console.log(determineWinner(hand2, hand2));
+*/
 
 //game on
 var cards = generateCards();
 cards = shuffle(cards);
+
+var gameon = true;
+while(gameon){
 var playerHand = [];
 playerHand.push(cards.pop());
 playerHand.push(cards.pop());
-console.log(playerHand);
+//console.log(playerHand);
 var compHand = [];
 compHand.push(cards.pop());
 compHand.push(cards.pop());
-console.log(compHand);
+//console.log(compHand);
 
-console.log("asdf")
+//console.log("asdf")
 console.log("Your hand is: " + printHand(playerHand) + "... for a total of " + calculateHand(simpHand(playerHand)));
 
 var cont = true;
 while(cont){
-	var action = prompt('(h)it or (s)tay? ');
-	console.log('action::: ' + action);
+	var action = prompt('(h)it or (s)tay?\n> ');
+	//console.log('action::: ' + action);
 	switch(action){
 		case('h'):
 		case('hit'):
 			playerHand.push(cards.pop());
-			console.log("Your hand is: " + printHand(playerHand) + " (" + calculateHand(simpHand(playerHand)) + ")");
-			if(calculateHand(simpHand(playerHand)) > 21) cont = false;
+			if(calculateHand(simpHand(playerHand)) <= 21){
+				console.log("Your hand: " + printHand(playerHand) + " (" + calculateHand(simpHand(playerHand)) + ")");
+			}
+			else cont = false;
 			break;
 		case('s'):
 		case('stay'):
@@ -142,12 +149,18 @@ while(cont){
 				compHand.push(cards.pop());
 			}
 			cont = false;
+			break;
 		default:
 			console.log("Please choose either to hit or stay\n");
 			break;
 	}
+	
 }
 
 console.log("Your hand: " + printHand(playerHand) + " (" + calculateHand(simpHand(playerHand)) + "), Computer hand: " + printHand(compHand) + " (" + calculateHand(simpHand(compHand)) + ")");
-determineWinner(simpHand(playerHand), simpHand(compHand));
+console.log(determineWinner(simpHand(playerHand), simpHand(compHand)));
+console.log("There are " + cards.length + " cards left in the deck\n------------------------------------------\n");
+if(cards.length < 26) gameon = false;
+}
 
+console.log("Less than 26 cards left. Game over!");
